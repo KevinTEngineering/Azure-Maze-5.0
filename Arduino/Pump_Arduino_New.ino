@@ -85,7 +85,7 @@ void PumpTwoSetup()
 //Setup Begins//
 void setup()
 {
-
+// Prepares all of the basic parameters of the pumps and sets their homed state to false.
   Serial.begin(9600);
   Serial.println("Setup begins");
 
@@ -132,7 +132,7 @@ void loop()
     Serial.print("Pump 2 Homed? ");
     Serial.println(pump2ready);
 
-
+    // If the ball pumps are not homed, run these setups
     if(digitalRead(23) == HIGH && !pump1ready)
     {
       PumpOneSetup();
@@ -147,11 +147,12 @@ void loop()
     }
 
     
-
+    // Check for if the the ball pumps are both homed, then runs normal pumping process
     if(pump2ready && pump1ready)
     {
       
       int ballPumpHomeSensorState = 1;
+       // Checking for both the ball in the sensor and the Nano has pin 3 on
       if (digitalRead(BALL_PUMP_1_SENSOR) == HIGH && digitalRead(23) == HIGH)
       {
     
@@ -176,7 +177,7 @@ void loop()
           Serial.println(ballPumpHomeSensorState);
         }
       }
-    
+      // Checking for both the ball in the sensor and the Nano has pin 4 on
       if (digitalRead(BALL_PUMP_2_SENSOR) == HIGH && digitalRead(24)==HIGH) 
       {
         // Move Ball Pump 2
@@ -200,7 +201,7 @@ void loop()
         }
       }
     }
-
+    // Prints if absolutely none of the previous criteria is not met.
     else
     {
       Serial.println("Nothing happens");
